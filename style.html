@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Rashmi!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="phone-container">
+        <div class="header">
+            <h1>Happy Birthday<br>Rashmi! 🎉</h1>
+            <p>The surprise awaits...</p>
+            <P><I>~By Sujal~</I></P>
+        </div>
+
+        <div class="photo-card">
+            <img src="IMG_4184.jpeg" alt="Birthday Girl">
+        </div>
+
+        <div class="subtext">You are amazing!And made a game for you:)🌸 Let's start the fun, Or just say lets start the game to unlock the lock for suprise.</div>
+
+        <div class="control-card">
+            <div class="input-group">
+                <span class="icon">🔑</span>
+                <input type="text" id="codeInput" placeholder="Enter the secret code...">
+            </div>
+            <button class="unlock-btn" onclick="checkCode()">Unlock Surprise 🔓</button>
+             <a href="game.html" class="hint" style="text-decoration: none; color: #b08d57; font-weight: 500;">🎮 Tap here to play a mini-game for the code!</a>
+
+        </div>
+    </div>
+
+    <!-- Custom Wrong Code Warning Popup -->
+    <div id="warningModal" class="warning-modal">
+        <div class="warning-content">
+            <h3>Oops! 🤭</h3>
+            <p>That's not the right code!  Check the hint at the bottom😉.</p>
+            <button class="warning-btn" onclick="closeWarning()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const enteredCode = document.getElementById("codeInput").value.trim().toUpperCase();
+            const secretCode = "SUP4U"; // Your secret code
+
+            if (enteredCode === secretCode) {
+                window.location.href = "letter.html"; // Success! Goes to paragraph page
+            } else {
+                // Show the custom styled warning popup instead of an alert
+                document.getElementById("warningModal").style.display = "flex";
+            }
+        }
+
+        function closeWarning() {
+            // Hide the warning popup and clear input box for her next try
+            document.getElementById("warningModal").style.display = "none";
+            document.getElementById("codeInput").value = "";
+        }
+    </script>
+
+
+</body>
+</html>
