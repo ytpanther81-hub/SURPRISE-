@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Letter for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Confetti Library for Firecracker Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div class="phone-container" style="justify-content: flex-start; gap: 15px;">
+        <div class="header" style="margin-top: 10px;">
+            <h1> Special Note 💌</h1>
+            <p>Just for you</p>
+        </div>
+
+        <div class="letter-card">
+            <h2>Dearest Fuchuu 😂🫶🏼,</h2>
+            <!-- WRITE YOUR PARAGRAPH HERE -->
+            <p>Happy Birthday! I wanted to make something special just to bring so much joy, laughter, and light into your life.</p>
+            <p>Thank you for being such an incredible friend through thick and thin. May upcoming days and years bring you endless happiness, beautiful adventures, and all the success you deeply deserve!</p>
+            <p> Yaad xa maile vanethiye sayad 2 bajxa hola ani ma snga laptop xaina, Ho tei din baserw banaudai xu ma yo suprise, Tala mero kehi kura haru timro lagi lekheko xu, Aasha xa timlai yo ekdamai maan parne xa❤️😉</p>
+            <P>Aaja timro janma din, malai tha xa timle yo birthday ni aru birthday jastai usual hunxa hola vanerw sochethiyau, No efforts from anyone and just the same boring day. Tei chiz kai dhyan ma rakhere maile timro marnoranjan rw khusi ko lagi yeti gareko ho. Malai tha vayena ki timlai khusii mahasus vaxa ki nai tara asha xa timlai ekdumai khusi lagexa.</P>
+            <p>Happy birthday once again, rw maile timlai kehi salha pani dina chahanxu, Bardo umer snga dherai kura haru dekhni rw sahana parxa, Afnai karibi manxey tadiyeko dekhna parxa, tara k garni jindagi ko sidhi ho chadna parxa jo. Ma timlai yeti vana cahanxu ki timro life ma jati pani samasya aayepani timi afu lai kamjor na banau, Afu mathi pura varosa rakhi yo papi duniya snga lada, Bala ani ekdin sukha vani chiz ko mahasus pauni xau. Rw yedi duniya ko boj le timlai garo hunxa vani, Timle malai samja, ma hamsea timi snga rw timro sath ma hunexu❤️😉</p>
+            <p style="text-align: right; margin-top: 10px; font-weight: 500; color: #b08d57;">— With love, Your Friend SUJAL🌸</p>
+        </div>
+
+        <!-- Bottom Click Here Button -->
+        <button class="unlock-btn" onclick="triggerSurprise()" style="margin-top: auto;">Click Here ✨</button>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <h3>Happy Birthday! 🎉</h3>
+            <p>Wishing you the absolute best day ever filled with love, laughter, and wonderful memories! ❤️</p>
+            <button class="close-modal-btn" onclick="closePopup()">Yay! 🥰</button>
+        </div>
+    </div>
+
+    <script>
+        function triggerSurprise() {
+            // Show the popup modal
+            document.getElementById("popupModal").style.display = "flex";
+
+            // Firecrackers / Confetti animation bursting from sides
+            var duration = 3.5 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 7,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.7 } // Left side firecracker
+                });
+                confetti({
+                    particleCount: 7,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.7 } // Right side firecracker
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function closePopup() {
+            document.getElementById("popupModal").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
+    <!-- Custom Wrong Code Warning Popup -->
+    <div id="warningModal" class="warning-modal">
+        <div class="warning-content">
+            <h3>Oops! 🤭</h3>
+            <p>That's not the right code! Try asking the birthday planner for a hint.</p>
+            <button class="warning-btn" onclick="closeWarning()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const enteredCode = document.getElementById("codeInput").value.trim().toUpperCase();
+            const secretCode = "SUP4U"; // Your secret code
+
+            if (enteredCode === secretCode) {
+                window.location.href = "letter.html"; // Success! Goes to paragraph page
+            } else {
+                // Show the custom styled warning popup instead of an alert
+                document.getElementById("warningModal").style.display = "flex";
+            }
+        }
+
+        function closeWarning() {
+            // Hide the warning popup and clear input box for her next try
+            document.getElementById("warningModal").style.display = "none";
+            document.getElementById("codeInput").value = "";
+        }
+    </script>

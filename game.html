@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Vault Challenge 🔐</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .trivia-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #f3e5ab;
+            box-shadow: 0 8px 20px rgba(176, 141, 87, 0.15);
+            width: 100%;
+            text-align: left;
+        }
+        .question-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #b08d57;
+            margin-bottom: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fdfdfd;
+            font-size: 13px;
+            color: #444;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: #b08d57;
+            background: #fffdf5;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 33.3%;
+            background: linear-gradient(135deg, #d4af37, #aa771c);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container" style="justify-content: center; text-align: center; gap: 15px;">
+        <div class="header">
+            <h1>Memory Vault 🔐</h1>
+            <p>Answer 3 questions to unlock your hint!</p>
+        </div>
+
+        <div class="trivia-card">
+            <!-- Progress Tracker -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+
+            <!-- Question Area -->
+            <div id="quizArea">
+                <div class="question-title" id="questionText">Question 1: Loading...</div>
+                <div id="optionsContainer"></div>
+            </div>
+        </div>
+
+        <a href="index.html" style="font-size: 13px; color: #888; text-decoration: none;">← Back to Lock Screen</a>
+    </div>
+
+    <!-- Wrong Answer Popup Modal -->
+    <div id="wrongModal" class="warning-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="warning-content" style="background: #fff; padding: 25px 20px; border-radius: 24px; text-align: center; width: 85%; max-width: 300px;">
+            <h3 style="color: #d90429; font-size: 22px; margin-bottom: 8px;">Oops! 🤭</h3>
+            <p style="font-size: 13px; color: #555; margin-bottom: 15px;">That answer wasn't quite right. I guess you don't know about me that much, Punishment!</p>
+            <button class="unlock-btn" onclick="closeWrongModal()" style="width: 100%; padding: 10px; border: none; border-radius: 50px; background: #d90429; color: white; font-weight: 500; cursor: pointer;">Try Again</button>
+        </div>
+    </div>
+
+    <!-- Victory Popup Modal -->
+    <div id="winModal" class="warning-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="warning-content" style="background: #fff; padding: 30px 20px; border-radius: 24px; text-align: center; width: 85%; max-width: 300px;">
+            <h3 style="color: #b08d57; font-size: 28px; margin-bottom: 8px;">Vault Unlocked! 🎉</h3>
+            <p style="font-size: 13px; color: #555;">You know our memories so well! Your secret code hint is:</p>
+            <h2 style="font-size: 32px; color: #aa771c; margin: 12px 0;">SUP4U</h2>
+            <button class="unlock-btn" onclick="goToMain()" style="width: 100%; padding: 12px; border: none; border-radius: 50px; background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%); color: white; font-weight: 500; cursor: pointer; margin-top: 10px;">Go Back & Unlock 🔓</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "1. Who is Sujal's favourite actor",
+                options: ["Sushant Sing Rajput", "Sarukh Khan", "Amitabh bachchan"],
+                correct: 0
+            },
+            {
+                question: "2. Who is Sujal?",
+                options: ["Random/unexpected person", "Rude person", "Annoying person"],
+                correct:2
+            },
+            {
+                question: "3. Guess the special Code yourself😁🤣?",
+                options: ["HAPPYBDAY", "SUP4U", "BESTFRIEND"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById("questionText").innerText = q.question;
+            
+            const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById("progress").style.width = progressPercent + "%";
+
+            const container = document.getElementById("optionsContainer");
+            container.innerHTML = "";
+
+            q.options.forEach((option, index) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = option;
+                btn.onclick = () => selectAnswer(index);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (selectedIndex === questions[currentQuestion].correct) {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    document.getElementById("winModal").style.display = "flex";
+                }
+            } else {
+                // Show custom styled popup instead of alert()
+                document.getElementById("wrongModal").style.display = "flex";
+            }
+        }
+
+        function closeWrongModal() {
+            document.getElementById("wrongModal").style.display = "none";
+            currentQuestion = 0;
+            loadQuestion();
+        }
+
+        function goToMain() {
+            window.location.href = "style.html";
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>
