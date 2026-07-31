@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Wish! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body.cake-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f4ebd0 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cake-card {
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(176, 141, 87, 0.2);
+            border: 1px solid #f3e5ab;
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Video styling replacing the cake png */
+        .cake-video {
+            width: 100%;
+            max-height: 220px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .cake-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: #b08d57;
+            margin-bottom: 5px;
+        }
+
+        .back-home-btn {
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            line-height: 45px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%);
+            color: white;
+            font-weight: 500;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(170, 119, 28, 0.3);
+        }
+
+        /* Floating Emoji Animation */
+        .floating-emoji {
+            position: absolute;
+            font-size: 24px;
+            animation: floatEmoji 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .fe-1 { top: 15px; left: 20px; animation-delay: 0s; }
+        .fe-2 { top: 40px; right: 20px; animation-delay: 2s; }
+
+        @keyframes floatEmoji {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            50% { transform: translateY(-15px) scale(1.2); opacity: 1; }
+            100% { transform: translateY(-30px) scale(0.8); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="cake-page">
+
+    <div class="cake-card">
+        <!-- Floating emojis inside the card -->
+        <span class="floating-emoji fe-1">🌸</span>
+        <span class="floating-emoji fe-2">💖</span>
+
+        <h1 class="cake-title">Wise you a Lovely Day! 🌸🎂</h1>
+        <p style="font-size: 13px; color: #666; margin-bottom: 5px;">May all your dreams come true!</p>
+
+        <!-- Lighted Cake Video -->
+        <video class="cake-video" autoplay muted loop playsinline>
+            <source src="Project Name 61.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <p style="font-size: 13px; color: #555; margin: 10px 0;">
+            Sending you flowers 🌸, warmth, and endless love on your special day! ✨
+        </p>
+
+        <a href="index.html" class="back-home-btn">Back to Home 🏠</a>
+    </div>
+
+</body>
+</html>
