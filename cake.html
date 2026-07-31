@@ -92,21 +92,41 @@
         <h1 class="cake-title">Wise you a Lovely Day! 🌸🎂</h1>
         <p style="font-size: 13px; color: #666; margin-bottom: 5px;">May all your dreams come true!</p>
 
-        <!-- 9:16 Vertical Video Edit with Tap-to-Unmute -->
-        <video class="cake-video" id="birthdayVideo" autoplay muted loop playsinline>
-            <source src="your-edit.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+                <!-- 9:16 Vertical Video Edit with Tap-to-Unmute Badge -->
+        <div style="position: relative; width: 100%;">
+            <video class="cake-video" id="birthdayVideo" autoplay muted loop playsinline>
+                <source src="your-edit.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <!-- Tap for Sound Indicator Badge -->
+            <div id="soundBadge" onclick="unmuteVideo()" style="position: absolute; bottom: 25px; right: 15px; background: rgba(0,0,0,0.6); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(4px);">
+                🔊 Tap for Sound
+            </div>
+        </div>
 
         <script>
-            // Unmutes the video automatically the moment she taps anywhere on the screen
-            document.body.addEventListener('click', function() {
+            function unmuteVideo() {
                 var video = document.getElementById('birthdayVideo');
+                var badge = document.getElementById('soundBadge');
+                
                 if (video.muted) {
                     video.muted = false;
+                    badge.style.display = 'none'; // Hide badge once unmuted
+                }
+            }
+
+            // Also unmute if she taps anywhere else on the screen
+            document.body.addEventListener('click', function() {
+                var video = document.getElementById('birthdayVideo');
+                var badge = document.getElementById('soundBadge');
+                if (video.muted) {
+                    video.muted = false;
+                    badge.style.display = 'none';
                 }
             }, { once: true });
         </script>
+
 
 <script>
     document.body.addEventListener('click', function() {
