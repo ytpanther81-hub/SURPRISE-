@@ -92,11 +92,31 @@
         <h1 class="cake-title">Wise you a Lovely Day! 🌸🎂</h1>
         <p style="font-size: 13px; color: #666; margin-bottom: 5px;">May all your dreams come true!</p>
 
-        <!-- Lighted Cake Video -->
-        <video class="cake-video" autoplay muted loop playsinline>
-            <source src="Project Name 62.mp4" type="video/mp4">
+        <!-- 9:16 Vertical Video Edit with Tap-to-Unmute -->
+        <video class="cake-video" id="birthdayVideo" autoplay muted loop playsinline>
+            <source src="your-edit.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+
+        <script>
+            // Unmutes the video automatically the moment she taps anywhere on the screen
+            document.body.addEventListener('click', function() {
+                var video = document.getElementById('birthdayVideo');
+                if (video.muted) {
+                    video.muted = false;
+                }
+            }, { once: true });
+        </script>
+
+<script>
+    document.body.addEventListener('click', function() {
+        var video = document.getElementById('birthdayVideo');
+        if (video.muted) {
+            video.muted = false;
+        }
+    }, { once: true }); // Triggers only on the first tap anywhere
+</script>
+
 
         <p style="font-size: 13px; color: #555; margin: 10px 0;">
             Sending you flowers 🌸, warmth, and endless love on your special day! ✨

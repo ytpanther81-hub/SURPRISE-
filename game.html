@@ -3,169 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Vault Challenge 🔐</title>
+    <title>Catch the Birthday Surprises! 🎁</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
     <style>
-        .trivia-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid #f3e5ab;
-            box-shadow: 0 8px 20px rgba(176, 141, 87, 0.15);
-            width: 100%;
-            text-align: left;
-        }
-        .question-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #b08d57;
-            margin-bottom: 12px;
-        }
-        .option-btn {
-            width: 100%;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            background: #fdfdfd;
-            font-size: 13px;
-            color: #444;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-        }
-        .option-btn:hover {
-            border-color: #b08d57;
-            background: #fffdf5;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #eee;
-            border-radius: 10px;
-            margin-bottom: 15px;
+        body.game-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f4ebd0 100%);
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
+            user-select: none;
         }
-        .progress-fill {
+
+        .game-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(176, 141, 87, 0.2);
+            border: 1px solid #f3e5ab;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .game-header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 38px;
+            color: #b08d57;
+            margin: 0 0 5px 0;
+        }
+
+        .game-header p {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Scoreboard */
+        .scoreboard {
+            font-size: 15px;
+            font-weight: 500;
+            color: #aa771c;
+            background: #fdf8ec;
+            padding: 6px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px auto;
+            border: 1px solid #f3e5ab;
+        }
+
+        /* The Play Area where items spawn */
+        .play-area {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background: #fffcf5;
+            border-radius: 16px;
+            border: 2px dashed #e6d2a5;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Falling / Spawning Target Items */
+        .target-item {
+            position: absolute;
+            font-size: 36px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .target-item:active {
+            transform: scale(1.3);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Win or Lose Screen Overlay */
+        .overlay-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            width: 33.3%;
-            background: linear-gradient(135deg, #d4af37, #aa771c);
-            transition: width 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .overlay-screen h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: #b08d57;
+            margin: 0 0 10px 0;
+        }
+
+        .code-display {
+            font-size: 26px;
+            font-weight: bold;
+            color: #aa771c;
+            background: #fdf8ec;
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px dashed #b08d57;
+            margin: 15px 0;
+            letter-spacing: 2px;
+        }
+
+        .unlock-btn {
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: center;
+            line-height: 45px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%);
+            color: white;
+            font-weight: 500;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(170, 119, 28, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
         }
     </style>
 </head>
-<body>
+<body class="game-page">
 
-    <div class="phone-container" style="justify-content: center; text-align: center; gap: 15px;">
-        <div class="header">
-            <h1>Memory Vault 🔐</h1>
-            <p>Answer 3 questions to unlock your hint!</p>
+    <div class="game-card">
+        <div class="game-header">
+            <h1>Catch 10 Surprises! 💖</h1>
+            <p>Tap surprises, but <b>avoid the bombs (💣)</b>!</p>
+            <div class="scoreboard">Score: <span id="score">0</span> / 10</div>
         </div>
 
-        <div class="trivia-card">
-            <!-- Progress Tracker -->
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress"></div>
-            </div>
+        <!-- Interactive Play Field -->
+        <div class="play-area" id="playArea"></div>
 
-            <!-- Question Area -->
-            <div id="quizArea">
-                <div class="question-title" id="questionText">Question 1: Loading...</div>
-                <div id="optionsContainer"></div>
-            </div>
+        <button class="unlock-btn" id="startBtn" onclick="startGame()">Start Game 🎮</button>
+
+        <!-- Win Overlay -->
+        <div class="overlay-screen" id="winScreen">
+            <h2>You Won! 🎉</h2>
+            <p style="font-size: 13px; color: #555; margin: 0;">Your secret unlock code is:</p>
+            <div class="code-display">SUP4U</div>
+            <button class="unlock-btn" onclick="goToMain()">Go Unlock Surprise 🔓</button>
         </div>
 
-        <a href="index.html" style="font-size: 13px; color: #888; text-decoration: none;">← Back to Lock Screen</a>
-    </div>
-
-    <!-- Wrong Answer Popup Modal -->
-    <div id="wrongModal" class="warning-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
-        <div class="warning-content" style="background: #fff; padding: 25px 20px; border-radius: 24px; text-align: center; width: 85%; max-width: 300px;">
-            <h3 style="color: #d90429; font-size: 22px; margin-bottom: 8px;">Oops! 🤭</h3>
-            <p style="font-size: 13px; color: #555; margin-bottom: 15px;">That answer wasn't quite right. I guess you don't know about me that much, Punishment!</p>
-            <button class="unlock-btn" onclick="closeWrongModal()" style="width: 100%; padding: 10px; border: none; border-radius: 50px; background: #d90429; color: white; font-weight: 500; cursor: pointer;">Try Again</button>
-        </div>
-    </div>
-
-    <!-- Victory Popup Modal -->
-    <div id="winModal" class="warning-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
-        <div class="warning-content" style="background: #fff; padding: 30px 20px; border-radius: 24px; text-align: center; width: 85%; max-width: 300px;">
-            <h3 style="color: #b08d57; font-size: 28px; margin-bottom: 8px;">Vault Unlocked! 🎉</h3>
-            <p style="font-size: 13px; color: #555;">You know our memories so well! Your secret code hint is:</p>
-            <h2 style="font-size: 32px; color: #aa771c; margin: 12px 0;">SUP4U</h2>
-            <!-- COPY BUTTON ADDED HERE -->
-            <button onclick="copyCode()" style="width: 100%; padding: 8px; border: 1px solid #b08d57; border-radius: 50px; background: #fffdf5; color: #b08d57; font-weight: 500; cursor: pointer; margin-bottom: 8px;">📋 Copy Code</button>
-            <span id="copyFeedback" style="color: #b08d57; font-size: 12px; display: none; margin-bottom: 8px;">Copied to clipboard! ✨</span>
-            <button class="unlock-btn" onclick="goToMain()" style="width: 100%; padding: 12px; border: none; border-radius: 50px; background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%); color: white; font-weight: 500; cursor: pointer; margin-top: 10px;">Go Back & Unlock 🔓</button>
+        <!-- Lose Overlay -->
+        <div class="overlay-screen" id="loseScreen">
+            <h2 style="color: #d9534f;">You Lose! 💥</h2>
+            <p style="font-size: 13px; color: #555; margin: 0 0 15px 0;">Oh no! You hit a bomb!</p>
+            <button class="unlock-btn" onclick="startGame()">Try Again 🔄</button>
         </div>
     </div>
 
     <script>
-        const questions = [
-            {
-                question: "1. Who is Sujal's favourite actor",
-                options: ["Sushant Sing Rajput", "Sarukh Khan", "Amitabh bachchan"],
-                correct: 0
-            },
-            {
-                question: "2. Who is Sujal?",
-                options: ["Random/unexpected person", "Rude person", "Annoying person"],
-                correct:2
-            },
-            {
-                question: "3. Guess the special Code yourself😁🤣?",
-                options: ["HAPPYBDAY", "SUP4U", "BESTFRIEND"],
-                correct: 1
-            }
-        ];
+        let score = 0;
+        const targetScore = 10;
+        let gameInterval;
+        const itemsList = ['💖', '🎂', '🌸', '🎁', '✨', '🧁', '💣', '💣']; // Added bombs to the mix
 
-        let currentQuestion = 0;
+        function startGame() {
+            score = 0;
+            document.getElementById("score").textContent = score;
+            document.getElementById("startBtn").style.display = "none";
+            document.getElementById("winScreen").style.display = "none";
+            document.getElementById("loseScreen").style.display = "none";
+            document.getElementById("playArea").innerHTML = "";
 
-        function loadQuestion() {
-            const q = questions[currentQuestion];
-            document.getElementById("questionText").innerText = q.question;
+            // Spawn items every 650 milliseconds
+            gameInterval = setInterval(spawnItem, 650);
+        }
+
+        function spawnItem() {
+            const playArea = document.getElementById("playArea");
             
-            const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById("progress").style.width = progressPercent + "%";
+            if (score >= targetScore) return;
 
-            const container = document.getElementById("optionsContainer");
-            container.innerHTML = "";
+            const item = document.createElement("div");
+            item.classList.add("target-item");
+            const randomContent = itemsList[Math.floor(Math.random() * itemsList.length)];
+            item.innerHTML = randomContent;
 
-            q.options.forEach((option, index) => {
-                const btn = document.createElement("button");
-                btn.className = "option-btn";
-                btn.innerText = option;
-                btn.onclick = () => selectAnswer(index);
-                container.appendChild(btn);
-            });
-        }
+            // Random position inside play area
+            const maxX = playArea.clientWidth - 50;
+            const maxY = playArea.clientHeight - 50;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
 
-        function selectAnswer(selectedIndex) {
-            if (selectedIndex === questions[currentQuestion].correct) {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    loadQuestion();
+            item.style.left = randomX + "px";
+            item.style.top = randomY + "px";
+
+            // Click action
+            item.onclick = function() {
+                if (randomContent === '💣') {
+                    // Hit a bomb! Game Over
+                    clearInterval(gameInterval);
+                    playArea.innerHTML = "";
+                    document.getElementById("loseScreen").style.display = "flex";
                 } else {
-                    document.getElementById("winModal").style.display = "flex";
-                }
-            } else {
-                // Show custom styled popup instead of alert()
-                document.getElementById("wrongModal").style.display = "flex";
-            }
-        }
+                    // Normal item clicked
+                    score++;
+                    document.getElementById("score").textContent = score;
+                    item.remove();
 
-        function closeWrongModal() {
-            document.getElementById("wrongModal").style.display = "none";
-            currentQuestion = 0;
-            loadQuestion();
+                    if (score >= targetScore) {
+                        clearInterval(gameInterval);
+                        playArea.innerHTML = "";
+                        document.getElementById("winScreen").style.display = "flex";
+                    }
+                }
+            };
+
+            playArea.appendChild(item);
+
+            // Item disappears after 1.1 seconds
+            setTimeout(() => {
+                if (item.parentElement) {
+                    item.remove();
+                }
+            }, 1100);
         }
 
         function goToMain() {
-            window.location.href = "index.html";
+            window.location.href = "index.html?code=SUP4U";
         }
-
-        loadQuestion();
     </script>
 
 </body>
