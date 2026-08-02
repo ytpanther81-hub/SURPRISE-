@@ -6,31 +6,73 @@
     <title>Happy Birthday Rashmi!</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Countdown Timer Styling */
+        .countdown-container {
+            background: #fdf8ec;
+            border: 1px dashed #b08d57;
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #aa771c;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        /* Fix alignment for the revealed content */
+        #mainContent {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
     <div class="phone-container">
-        <div class="header">
-            <h1>Happy Birthday<br>Rashmi! 🎉</h1>
-            <p>The surprise awaits...</p>
-            <P><I>~By Sujal~</I></P>
+        
+        <!-- COUNTDOWN TIMER (Visible first while time is ticking) -->
+        <div class="countdown-container" id="countdownBox">
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 32px; color: #b08d57; margin: 0 0 10px 0;">Something Special is Coming... 🤫</h2>
+            <p style="font-size: 13px; color: #666; margin: 0;">⏳ Surprise unlocks in:</p>
+            <div class="countdown-timer" id="timerDisplay">Loading...</div>
+            <p style="font-size: 11px; color: #d9534f; margin: 12px 0 0 0;">🔒 Area Locked Until Then!</p>
         </div>
 
-        <div class="photo-card">
-            <img src="IMG_4184.jpeg" alt="Birthday Girl">
-        </div>
-
-        <div class="subtext">You are amazing!And made a game for you:)🌸 Let's start the fun, Or just say lets start the game to unlock the lock for suprise.</div>
-
-        <div class="control-card">
-            <div class="input-group">
-                <span class="icon">🔑</span>
-                <input type="text" id="codeInput" placeholder="Enter the secret code...">
+        <!-- MAIN SURPRISE CONTENT (Hidden completely until timer ends) -->
+        <div id="mainContent" style="display: none;">
+            <div class="header">
+                <h1>Happy Birthday<br>Rashmi! 🎉</h1>
+                <p>The surprise awaits...</p>
+                <P><I>~By Sujal~</I></P>
             </div>
-            
-            <button class="unlock-btn" onclick="checkCode()">Unlock Surprise 🔓</button>
-             <a href="game.html" class="hint" style="text-decoration: none; color: #b08d57; font-weight: 500;">🎮 Tap here to play a mini-game for the code!</a>
 
+            <div class="photo-card">
+                <img src="IMG_4184.jpeg" alt="Birthday Girl">
+            </div>
+
+            <div class="subtext">You are amazing! And made a game for you:)🌸 Let's start the fun, Or just say lets start the game to unlock the lock for suprise.</div>
+
+            <div class="control-card">
+                <div class="input-group">
+                    <span class="icon">🔑</span>
+                    <input type="text" id="codeInput" placeholder="Enter the secret code...">
+                </div>
+                
+                <button class="unlock-btn" onclick="checkCode()">Unlock Surprise 🔓</button>
+                 <a href="game.html" class="hint" style="text-decoration: none; color: #b08d57; font-weight: 500; display: block; margin-top: 10px;">🎮 Tap here to play a mini-game for the code!</a>
+            </div>
         </div>
     </div>
 
@@ -38,31 +80,61 @@
     <div id="warningModal" class="warning-modal">
         <div class="warning-content">
             <h3>Oops! 🤭</h3>
-            <p>That's not the right code!  Check the game option at the bottom😉.</p>
+            <p>That's not the right code! Check the game option at the bottom😉.</p>
             <button class="warning-btn" onclick="closeWarning()">Try Again</button>
         </div>
     </div>
 
     <script>
+        // 👉 SET YOUR TARGET DATE & TIME HERE (Year, Month index 0-11, Day, Hour, Minute, Second)
+        // Note: Month is 0-based (0 = January, 7 = August, etc.)
+        const targetDate = new Date(2026, 7, 15, 0, 0, 0).getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // WHEN TIMER ENDS: Hide countdown and reveal the entire surprise content!
+                clearInterval(timerInterval);
+                document.getElementById("countdownBox").style.display = "none";
+                document.getElementById("mainContent").style.display = "flex";
+            } else {
+                // Calculate time remaining
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("timerDisplay").innerHTML = 
+                    (days > 0 ? days + "d " : "") + hours + "h " + mins + "m " + seconds + "s";
+            }
+        }, 1000);
+
         function checkCode() {
             const enteredCode = document.getElementById("codeInput").value.trim().toUpperCase();
             const secretCode = "SUP4U"; // Your secret code
 
             if (enteredCode === secretCode) {
-                window.location.href = "letter.html"; // Success! Goes to paragraph page
+                window.location.href = "letter.html"; // Success! Goes to your cake/video page
             } else {
-                // Show the custom styled warning popup instead of an alert
                 document.getElementById("warningModal").style.display = "flex";
             }
         }
 
         function closeWarning() {
-            // Hide the warning popup and clear input box for her next try
             document.getElementById("warningModal").style.display = "none";
             document.getElementById("codeInput").value = "";
         }
-    </script>
 
+        // Auto-skip timer if she comes back from winning the mini-game
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('code')) {
+            document.getElementById("countdownBox").style.display = "none";
+            document.getElementById("mainContent").style.display = "flex";
+            document.getElementById("codeInput").value = urlParams.get('code');
+        }
+    </script>
 
 </body>
 </html>
