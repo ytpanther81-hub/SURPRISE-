@@ -3,200 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Rashmi!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Happy Birthday Rashmi! 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
     <style>
+        :root {
+            --primary-gold: #d4af37;
+            --soft-cream: rgba(255, 255, 255, 0.96);
+            --border-gold: rgba(212, 175, 55, 0.4);
+            --shadow-gold: rgba(212, 175, 55, 0.28);
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #fff8e1 50%, #e0f7fa 100%);
+            margin: 0;
+            padding: 20px 0;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        /* --- MAGIC FAIRY LIGHTS STRING --- */
+        .fairy-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background-image: radial-gradient(circle, #fff 3px, transparent 4px);
+            background-size: 35px 25px;
+            opacity: 0.85;
+            z-index: 10;
+            pointer-events: none;
+            animation: twinkleLights 2s infinite alternate;
+        }
+
+        @keyframes twinkleLights {
+            0% { opacity: 0.5; filter: drop-shadow(0 0 2px #ffeb3b); }
+            100% { opacity: 1; filter: drop-shadow(0 0 8px #ff9800); }
+        }
+
         .phone-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 85vh;
-            padding: 20px;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 360px;
+            padding: 12px;
+            height: 100%;
+            max-height: 550px;
+        
             box-sizing: border-box;
             position: relative;
-            overflow: hidden;
             cursor: pointer;
-        }
-
-        /* Gorgeous Glowing Countdown Box */
-        .countdown-container {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(253, 248, 236, 0.98));
-            border: 2px solid rgba(176, 141, 87, 0.4);
-            padding: 22px 20px;
-            border-radius: 24px;
-            text-align: center;
-            width: 100%;
-            max-width: 320px;
-            box-sizing: border-box;
-            box-shadow: 0 15px 35px rgba(176, 141, 87, 0.25);
-            backdrop-filter: blur(10px);
-            animation: pulseGlow 3s infinite ease-in-out;
+            background: var(--soft-cream);
+            border: 2px solid var(--border-gold);
+            border-radius: 26px;
+            box-shadow: 0 14px 35px var(--shadow-gold);
+            backdrop-filter: blur(12px);
             z-index: 2;
+            gap: 12px;
+            margin: auto;
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 15px 35px rgba(176, 141, 87, 0.2); }
-            50% { box-shadow: 0 20px 45px rgba(176, 141, 87, 0.4); }
-            100% { box-shadow: 0 15px 35px rgba(176, 141, 87, 0.2); }
-        }
-
-        .countdown-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 32px;
-            color: #b08d57;
-            margin: 0 0 2px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .countdown-subtitle {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #888;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .countdown-timer {
-            font-size: 20px;
-            font-weight: 600;
-            color: #aa771c;
-            letter-spacing: 1px;
-            background: #fff;
-            padding: 6px 10px;
-            border-radius: 12px;
-            border: 1px dashed #b08d57;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
-            margin: 6px 0;
-        }
-
-        .lock-status {
-            font-size: 10px;
-            color: #d9534f;
-            font-weight: 500;
-            margin-top: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Side-by-side Sticker & Caption Card */
+        /* --- SIDE-BY-SIDE MEME / STICKER CARD (Top) --- */
         .meme-side-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(176, 141, 87, 0.3);
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 20px;
+            background: #fff;
+            border: 1px solid var(--border-gold);
+            padding: 10px 12px;
+            border-radius: 16px;
             width: 100%;
-            max-width: 320px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-            z-index: 2;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             box-sizing: border-box;
         }
 
         .meme-side-card img {
-            width: 75px;
-            height: 75px;
+            width: 52px;
+            height: 52px;
             object-fit: cover;
             border-radius: 12px;
             flex-shrink: 0;
-            border: 1px solid rgba(176, 141, 87, 0.3);
+            border: 2px solid rgba(212, 175, 55, 0.5);
         }
 
         .meme-side-card p {
             margin: 0;
             font-size: 11px;
-            color: #555;
+            color: #444;
             font-style: italic;
             font-weight: 500;
-            line-height: 1.3;
+            line-height: 1.35;
             text-align: left;
         }
 
-        /* Mini Milestone Tracker (Gift, Game, Cake) */
-        .milestone-card {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(176, 141, 87, 0.3);
-            margin-top: 10px;
-            padding: 10px 14px;
-            border-radius: 18px;
+        /* --- STUNNING GLOWING COUNTDOWN BOX (Center) --- */
+        .countdown-container {
+            background: #fff;
+            border: 2px solid var(--border-gold);
+            padding: 16px 14px;
+            border-radius: 20px;
+            text-align: center;
             width: 100%;
-            max-width: 320px;
+            box-sizing: border-box;
+            box-shadow: 0 8px 22px var(--shadow-gold);
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 6px 15px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 16px 32px rgba(212, 175, 55, 0.4); }
+            100% { box-shadow: 0 6px 15px rgba(212, 175, 55, 0.2); }
+        }
+
+        .countdown-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--primary-gold);
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .countdown-subtitle {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #777;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            font-size: 18px;
+            font-weight: 700;
+            color: #8a6414;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fffdfa, #fff3e0);
+            padding: 7px 12px;
+            border-radius: 12px;
+            border: 1px dashed var(--primary-gold);
+            margin: 6px 0;
+        }
+
+        .lock-status {
+            font-size: 10.5px;
+            color: #e53935;
+            font-weight: 600;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        /* --- MORE OPTIONS BAR (Hint & Music Only) --- */
+        .quick-action-bar {
+            background: #fff;
+            border: 1px solid var(--border-gold);
+            padding: 10px 14px;
+            border-radius: 16px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .action-chip {
+            background: #fff;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            padding: 7px 16px;
+            border-radius: 12px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #775210;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .action-chip:hover {
+            background: #fff8e1;
+        }
+
+        /* --- MINI MILESTONE TRACKER (Bottom) --- */
+        .milestone-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255, 243, 224, 0.96));
+            border: 1px solid var(--border-gold);
+            padding: 10px 14px;
+            border-radius: 16px;
+            width: 100%;
             display: flex;
             justify-content: space-around;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            z-index: 2;
             box-sizing: border-box;
         }
 
         .milestone-item {
-            font-size: 10px;
-            color: #777;
-            font-weight: 500;
+            font-size: 9.5px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .milestone-item span {
             display: block;
-            font-size: 13px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #333;
             margin-top: 2px;
         }
 
-        /* Click to pop heart animation */
+        /* --- CLICK TO POP HEART ANIMATION --- */
         .pop-heart {
             position: absolute;
             font-size: 22px;
-            animation: popUpFade 1s forwards ease-out;
+            animation: popUpFade 1.2s forwards ease-out;
             pointer-events: none;
-            z-index: 10;
+            z-index: 20;
         }
 
         @keyframes popUpFade {
-            0% { transform: translateY(0) scale(0.5); opacity: 1; }
-            100% { transform: translateY(-70px) scale(1.4); opacity: 0; }
+            0% { transform: translateY(0) scale(0.4); opacity: 1; }
+            100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
         }
 
-        /* Floating background elements animation */
+        /* --- FLOATING BACKGROUND EMOJIS --- */
         .floating-emoji {
             position: absolute;
-            font-size: 20px;
-            animation: floatUp 4s infinite linear;
-            opacity: 0.6;
+            font-size: 22px;
+            animation: floatUp 6s infinite linear;
+            opacity: 0.75;
             z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.85; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Fix alignment for revealed content */
+        /* --- MAIN SURPRISE CONTENT CONTAINER --- */
         #mainContent {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             text-align: center;
             width: 100%;
+            gap: 10px;
             z-index: 2;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 38px;
+            color: var(--primary-gold);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header p {
+            color: #555;
+            font-size: 11.5px;
+            margin: 2px 0;
+            font-weight: 500;
+        }
+
+        .photo-card {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            margin: 4px auto;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .subtext {
+            font-size: 11.5px;
+            color: #444;
+            background: #fff;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid var(--border-gold);
+            line-height: 1.4;
+            text-align: center;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 2px 0;
+        }
+
+        .control-card {
+            background: #fff;
+            border: 1px solid var(--border-gold);
+            padding: 14px;
+            border-radius: 18px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 12px;
+            padding: 8px 12px;
+            border: 1px solid #dcd6d0;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+
+        .input-group .icon {
+            font-size: 15px;
+            margin-right: 8px;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            color: #333;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #d4af37, #aa771c);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(170, 119, 28, 0.35);
+        }
+
+        .game-hint-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #b08d57;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 11.5px;
+        }
+
+        /* --- WARNING POPUP MODAL --- */
+        .warning-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .warning-content {
+            background: #fff;
+            padding: 22px 16px;
+            border-radius: 22px;
+            text-align: center;
+            max-width: 280px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .warning-content h3 { color: #333; margin-top: 0; font-size: 20px; margin-bottom: 6px; }
+        .warning-content p { color: #666; font-size: 12px; margin-bottom: 14px; line-height: 1.4; }
+        .warning-btn {
+            background: linear-gradient(135deg, #e53935, #c62828); color: white; border: none;
+            padding: 9px 16px; border-radius: 10px; font-weight: 600;
+            font-size: 12.5px; cursor: pointer; width: 100%;
         }
     </style>
 </head>
 <body>
 
+    <!-- Magic Fairy Lights String -->
+    <div class="fairy-lights"></div>
+
     <div class="phone-container" id="phoneContainer" onclick="createHeart(event)">
         
-        <!-- Floating Background Elements for Magic Vibe -->
+        <!-- Floating Background Elements -->
         <div class="floating-emoji" style="left: 15%; animation-delay: 0s;">🌸</div>
         <div class="floating-emoji" style="left: 40%; animation-delay: 1.5s;">✨</div>
         <div class="floating-emoji" style="left: 75%; animation-delay: 0.8s;">💖</div>
         <div class="floating-emoji" style="left: 85%; animation-delay: 2.5s;">🎉</div>
 
-        <!-- COUNTDOWN TIMER -->
+        <!-- 1. TOP: Dog Sticker Card -->
+        <div class="meme-side-card" id="memeBox">
+            <img src="IMG_4323.jpeg" alt="Waiting Dog">
+            <p>"Me waiting patiently for August 15th to arrive!" 🐾⏳</p>
+        </div>
+
+        <!-- 2. MIDDLE: Countdown Timer Box -->
         <div class="countdown-container" id="countdownBox">
             <h2 class="countdown-title">Special Surprise</h2>
             <div class="countdown-subtitle">⏳ Unlocking in...</div>
@@ -204,41 +438,40 @@
             <div class="lock-status">🔒 Area Locked Until Aug 15</div>
         </div>
 
-        <!-- SIDE-BY-SIDE DOG STICKER & CAPTION CARD -->
-        <div class="meme-side-card" id="memeBox">
-            <img src="IMG_4323.jpeg" alt="Waiting Dog">
-            <p>"Me and everyone else waiting patiently for August 15th to finally arrive!" 🐾⏳</p>
+        <!-- 3. LOWER-MIDDLE: Hint & Music Option Chips Bar -->
+        <div class="quick-action-bar" id="optionsBar">
+            <a href="#hint" onclick="alert('Hint: Play the mini-game to find the secret code SUP4U! 😉'); return false;" class="action-chip">💡 View Hint</a>
+            <a href="#music" onclick="alert('🎶 Birthday melody vibes activated!'); return false;" class="action-chip">🎵 Play Music</a>
         </div>
 
-        <!-- MINI MILESTONE TRACKER -->
+        <!-- 4. BOTTOM: Milestone Tracker -->
         <div class="milestone-card" id="milestoneBox">
             <div class="milestone-item">Surprise <span>🎁 Ready</span></div>
-            <div class="milestone-item">Mini-Game <span>🎮 Unlocked</span></div>
+            <div class="milestone-item">Vibes <span>✨ Magical</span></div>
             <div class="milestone-item">Cake <span>🎂 Baking</span></div>
         </div>
 
-        <!-- MAIN SURPRISE CONTENT (Hidden completely until timer ends) -->
-        <div id="mainContent" style="display: none;">
+        <!-- MAIN SURPRISE CONTENT (Hidden until timer ends) -->
+        <div id="mainContent">
             <div class="header">
-                <h1>Happy Birthday<br>Rashmi! 🎉</h1>
-                <p>The surprise awaits...</p>
-                <P><I>~By Sujal~</I></P>
+                <h1>Happy Birthday Rashmi! 🎉</h1>
+                <p>The surprise awaits... ~By Sujal~</p>
             </div>
 
             <div class="photo-card">
                 <img src="IMG_4184.jpeg" alt="Birthday Girl">
             </div>
 
-            <div class="subtext">You are amazing! And made a game for you:)🌸 Let's start the fun, Or just say lets start the game to unlock the lock for suprise.</div>
+            <div class="subtext">You are amazing! Made a mini-game to unlock the code for your surprise! 🌸✨</div>
 
             <div class="control-card">
                 <div class="input-group">
                     <span class="icon">🔑</span>
-                    <input type="text" id="codeInput" placeholder="Enter the secret code...">
+                    <input type="text" id="codeInput" placeholder="Enter secret code...">
                 </div>
                 
                 <button class="unlock-btn" onclick="checkCode()">Unlock Surprise 🔓</button>
-                 <a href="game.html" class="hint" style="text-decoration: none; color: #b08d57; font-weight: 500; display: block; margin-top: 10px;">🎮 Tap here to play a mini-game for the code!</a>
+                <a href="game.html" class="game-hint-link">🎮 Tap here to play mini-game!</a>
             </div>
         </div>
     </div>
@@ -247,30 +480,28 @@
     <div id="warningModal" class="warning-modal">
         <div class="warning-content">
             <h3>Oops! 🤭</h3>
-            <p>That's not the right code! Check the game option at the bottom😉.</p>
+            <p>That's not the right code! Check out the mini-game option above for a clue 😉.</p>
             <button class="warning-btn" onclick="closeWarning()">Try Again</button>
         </div>
     </div>
 
     <script>
-        // Tap-to-heart effect anywhere on screen
         function createHeart(event) {
-            // Prevent heart effect if clicking interactive buttons or inputs
-            if(event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT' || event.target.tagName === 'A') return;
+            if(event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT' || event.target.tagName === 'A' || event.target.closest('.control-card')) return;
+
+            const heartsPool = ["💖", "✨", "🌸", "⭐", "💗"];
+            const randomHeart = heartsPool[Math.floor(Math.random() * heartsPool.length)];
 
             const heart = document.createElement("div");
             heart.className = "pop-heart";
-            heart.innerHTML = "💖";
-            heart.style.left = event.clientX + "px";
-            heart.style.top = event.clientY + "px";
+            heart.innerHTML = randomHeart;
+            heart.style.left = (event.clientX - 10) + "px";
+            heart.style.top = (event.clientY - 10) + "px";
             document.body.appendChild(heart);
 
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
+            setTimeout(() => { heart.remove(); }, 1200);
         }
 
-        // Target Date set for August 15, 2026 at 12:00 AM (Midnight)
         const targetDate = new Date(2026, 7, 15, 0, 0, 0).getTime();
 
         const timerInterval = setInterval(function() {
@@ -278,10 +509,10 @@
             const distance = targetDate - now;
 
             if (distance < 0) {
-                // WHEN TIMER ENDS: Hide countdown boxes, reveal surprise content!
                 clearInterval(timerInterval);
                 document.getElementById("countdownBox").style.display = "none";
                 document.getElementById("memeBox").style.display = "none";
+                document.getElementById("optionsBar").style.display = "none";
                 document.getElementById("milestoneBox").style.display = "none";
                 document.getElementById("mainContent").style.display = "flex";
             } else {
@@ -311,11 +542,11 @@
             document.getElementById("codeInput").value = "";
         }
 
-        // Auto-skip timer if she comes back from winning the mini-game
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get('code')) {
             document.getElementById("countdownBox").style.display = "none";
             document.getElementById("memeBox").style.display = "none";
+            document.getElementById("optionsBar").style.display = "none";
             document.getElementById("milestoneBox").style.display = "none";
             document.getElementById("mainContent").style.display = "flex";
             document.getElementById("codeInput").value = urlParams.get('code');

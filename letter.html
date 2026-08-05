@@ -3,33 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Letter for You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>A Special Letter for You 💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- Confetti Library for Firecracker Effects -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --soft-cream: rgba(255, 255, 255, 0.96);
+            --border-gold: rgba(212, 175, 55, 0.4);
+            --shadow-gold: rgba(212, 175, 55, 0.25);
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #fff8e1 50%, #e0f7fa 100%);
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- MAGIC FAIRY LIGHTS STRING --- */
+        .fairy-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background-image: radial-gradient(circle, #fff 3px, transparent 4px);
+            background-size: 35px 25px;
+            opacity: 0.85;
+            z-index: 10;
+            pointer-events: none;
+            animation: twinkleLights 2s infinite alternate;
+        }
+
+        @keyframes twinkleLights {
+            0% { opacity: 0.5; filter: drop-shadow(0 0 2px #ffeb3b); }
+            100% { opacity: 1; filter: drop-shadow(0 0 8px #ff9800); }
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 350px;
+            height: 94vh;
+            max-height: 600px;
+            background: var(--soft-cream);
+            border: 2px solid var(--border-gold);
+            border-radius: 24px;
+            box-shadow: 0 12px 30px var(--shadow-gold);
+            backdrop-filter: blur(12px);
+            padding: 14px 16px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 34px;
+            color: var(--primary-gold);
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header p {
+            color: #666;
+            font-size: 10px;
+            margin: 0;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- STYLISH LETTER CARD --- */
+        .letter-card {
+            background: #ffffff;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 12px 14px;
+            flex-grow: 1;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+            box-sizing: border-box;
+            margin: 6px 0;
+        }
+
+        /* Custom Scrollbar for letter card */
+        .letter-card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .letter-card::-webkit-scrollbar-track {
+            background: #fff8e1;
+            border-radius: 10px;
+        }
+        .letter-card::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        .letter-card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            color: #8a6414;
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        .letter-card p {
+            font-size: 11.5px;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #d4af37, #aa771c);
+            color: white;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(170, 119, 28, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(170, 119, 28, 0.45);
+        }
+
+        /* --- POPUP MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 24px 18px;
+            border-radius: 22px;
+            text-align: center;
+            max-width: 280px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h3 { 
+            margin-top: 0; 
+            font-size: 22px; 
+            font-family: 'Great Vibes', cursive;
+            color: var(--primary-gold);
+            margin-bottom: 6px; 
+        }
+
+        .modal-content p { 
+            color: #666; 
+            font-size: 12px; 
+            margin-bottom: 16px; 
+            line-height: 1.4; 
+        }
+
+        .close-modal-btn {
+            background: linear-gradient(135deg, #d4af37, #aa771c); 
+            color: white; 
+            border: none;
+            padding: 9px 16px; 
+            border-radius: 10px; 
+            font-weight: 600;
+            font-size: 12.5px; 
+            cursor: pointer; 
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(170, 119, 28, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .close-modal-btn:hover {
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 <body>
 
-    <div class="phone-container" style="justify-content: flex-start; gap: 15px;">
-        <div class="header" style="margin-top: 10px;">
-            <h1> Special Note 💌</h1>
+    <!-- Magic Fairy Lights String -->
+    <div class="fairy-lights"></div>
+
+    <div class="phone-container">
+        <div class="header">
+            <h1>Special Note 💌</h1>
             <p>Just for you</p>
         </div>
 
         <div class="letter-card">
-            <h2>Dearest Fuchuu 😂🫶🏼,</h2>
-            <!-- WRITE YOUR PARAGRAPH HERE -->
+            <h2>Dearest Fuchuu 🥹🫶🏼</h2>
             <p>Happy Birthday! I wanted to make something special just to bring so much joy, laughter, and light into your life.</p>
             <p>Thank you for being such an incredible friend through thick and thin. May upcoming days and years bring you endless happiness, beautiful adventures, and all the success you deeply deserve!</p>
-            <p> Yaad xa maile vanethiye sayad 2 bajxa hola ani ma snga laptop xaina, Ho tei din baserw banaudai xu ma yo suprise, Tala mero kehi kura haru timro lagi lekheko xu, Aasha xa timlai yo ekdamai maan parne xa❤️😉</p>
-            <P>Aaja timro janma din, malai tha xa timle yo birthday ni aru birthday jastai usual hunxa hola vanerw sochethiyau, No efforts from anyone and just the same boring day. Tei chiz kai dhyan ma rakhere maile timro marnoranjan rw khusi ko lagi yeti gareko ho. Malai tha vayena ki timlai khusii mahasus vaxa ki nai tara asha xa timlai ekdumai khusi lagexa.</P>
-            <p>Happy birthday once again, rw maile timlai kehi salha pani dina chahanxu, Bardo umer snga dherai kura haru dekhni rw sahana parxa, Afnai karibi manxey tadiyeko dekhna parxa, tara k garni jindagi ko sidhi ho chadna parxa jo. Ma timlai yeti vana cahanxu ki timro life ma jati pani samasya aayepani timi afu lai kamjor na banau, Afu mathi pura varosa rakhi yo papi duniya snga lada, Bala ani ekdin sukha vani chiz ko mahasus pauni xau. Rw yedi duniya ko boj le timlai garo hunxa vani, Timle malai samja, ma hamsea timi snga rw timro sath ma hunexu❤️😉</p>
-            <p style="text-align: right; margin-top: 10px; font-weight: 500; color: #b08d57;">— With love, Your Friend SUJAL🌸</p>
+            <p>:) Tala mero kehi kura haru timro lagi lekheko xu, Aasha xa timlai yo ekdamai maan parne xa❤️😉</p>
+            <p>Aaja timro janma din, malai tha xa timle yo birthday ni aru birthday jastai usual hunxa hola vanerw sochethiyau, No efforts from anyone and just the same boring day. Tei chiz lai dhyan ma rakhere maile timro marnoranjan rw khusi ko lagi yeti gareko ho. Malai tha vayena ki timlai khusii mahasus vaxa ki nai tara asha xa timlai ekdumai khusi lagexa.</p>
+            <p>Happy birthday once again, rw maile timlai kehi salha pani dina chahanxu, Bardo umer snga dherai kura haru dekhni rw sahana parxa,Nachaheko pani sunu parxa, tara k garni jindagi ko sidhi ho!! chadna parxa jo. Ma timlai yeti vana chahanxu ki timro life ma jati pani samasya aayepani timi afu lai kamjor na banau, Afu mathi pura varosa rakhi yo papi duniya snga lada, Bala ani ekdin sukha vani chiz ko mahasus pauni xau. Rw yedi duniya ko boj le timlai garo hunxa vani, Timle malai samja, ma hamsea timi snga rw timro sath ma hunexu❤️😉</p>
+            <p style="text-align: right; margin-top: 8px; font-weight: 600; color: #b08d57;">— With love, Your Friend SUJAL🌸</p>
         </div>
 
         <!-- Bottom Click Here Button -->
-        <button class="unlock-btn" onclick="triggerSurprise()" style="margin-top: auto;">Click Here ✨</button>
+        <button class="unlock-btn" onclick="triggerSurprise()">After the letter-Click Here ✨</button>
     </div>
 
     <!-- Popup Modal -->
@@ -37,9 +248,7 @@
         <div class="modal-content">
             <h3>Happy Birthday! 🎉</h3>
             <p>Wishing you the absolute best day ever filled with love, laughter, and wonderful memories! ❤️</p>
-
-<button class="close-modal-btn" onclick="window.location.href='cake.html'">Yay! 🥰</button>
-
+            <button class="close-modal-btn" onclick="window.location.href='cake.html'">Yay! 🥰 continue</button>
         </div>
     </div>
 
@@ -71,39 +280,7 @@
                 }
             }());
         }
-
-        function closePopup() {
-            document.getElementById("popupModal").style.display = "none";
-        }
     </script>
 
 </body>
 </html>
-    <!-- Custom Wrong Code Warning Popup -->
-    <div id="warningModal" class="warning-modal">
-        <div class="warning-content">
-            <h3>Oops! 🤭</h3>
-            <p>That's not the right code! Try asking the birthday planner for a hint.</p>
-            <button class="warning-btn" onclick="closeWarning()">Try Again</button>
-        </div>
-    </div>
-
-    <script>
-        function checkCode() {
-            const enteredCode = document.getElementById("codeInput").value.trim().toUpperCase();
-            const secretCode = "SUP4U"; // Your secret code
-
-            if (enteredCode === secretCode) {
-                window.location.href = "letter.html"; // Success! Goes to paragraph page
-            } else {
-                // Show the custom styled warning popup instead of an alert
-                document.getElementById("warningModal").style.display = "flex";
-            }
-        }
-
-        function closeWarning() {
-            // Hide the warning popup and clear input box for her next try
-            document.getElementById("warningModal").style.display = "none";
-            document.getElementById("codeInput").value = "";
-        }
-    </script>
